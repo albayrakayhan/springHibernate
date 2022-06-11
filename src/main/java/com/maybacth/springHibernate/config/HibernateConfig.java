@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,11 +54,12 @@ public class HibernateConfig {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setDataSource(getDataSource());
 		factory.setHibernateProperties(hibernateProperties());
-		factory.setPackagesToScan(new String[] {"com.maybacth.springHibernate.model"}); //Employee class in bulundugu package in path  ini yaziyoruz.
+		factory.setPackagesToScan(new String[] {"com.maybacth.springHibernate.EmployeeDTO"}); //EmployeeDTO class in bulundugu package in path  ini yaziyoruz.
 		return factory; //
 	}
 	
 	@Bean
+	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();	
 		transactionManager.setSessionFactory(sessionFactory);
